@@ -1,19 +1,28 @@
+Parameters:
+  InstanceId:
+    Type: String
+  AlarmName:
+    Type: String   
+  AlarmActions:
+    Type: String
 Resources:
   CPUCreditBalance:
     Type: AWS::CloudWatch::Alarm
     Properties: 
-      AlarmName: ALARM NAME
+      AlarmName:
+        Ref: AlarmName
       AlarmDescription: CPU Balance Is Lower Than
       MetricName: CPUCreditBalance
       Namespace: AWS/EC2
       Statistic: Average
       Dimensions:
         - Name: InstanceId
-          Value: INSTANCE ID HERE
+          Value: 
+            Ref: InstanceId
       ComparisonOperator: LessThanOrEqualToThreshold
       DatapointsToAlarm: 1
       EvaluationPeriods: 1
       Period: 300
       Threshold: 30
       AlarmActions: 
-      - ARN HERE
+        - Ref: AlarmActions
